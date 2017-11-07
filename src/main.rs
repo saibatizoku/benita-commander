@@ -10,8 +10,9 @@ extern crate fern;
 #[macro_use]
 extern crate log;
 
-/// Errors and their descriptions
+pub mod cli;
 pub mod errors {
+    //! Errors and their descriptions
     use super::logging;
     use benita;
 
@@ -30,6 +31,7 @@ pub mod errors {
 pub mod logging;
 
 use self::errors::*;
+use cli::{responder_subcommand, BenitaCommanderApp};
 use logging::start_log;
 
 use clap::{App, AppSettings, ArgMatches, SubCommand};
@@ -37,32 +39,23 @@ use clap::{App, AppSettings, ArgMatches, SubCommand};
 
 /// Execute the program from the given command-line arguments
 fn evaluate(args: &ArgMatches) -> Result<()> {
+    // This runs the whole program. Everything has brought us to this point.
+    // Use it wisely.
     debug!("{:?}", args);
     println!("Hello, world!");
     Ok(())
 }
 
 /// parse command line arguments, return the valid matches.
-fn parse_command_line<'a>() -> Result<ArgMatches<'a>> {
-    let cli_parser = App::new("benita-commander")
-        .settings(&[
-            AppSettings::SubcommandRequired,
-        ])
-        .subcommands(vec![
-            SubCommand::with_name("conductivity"),
-            SubCommand::with_name("ph"),
-            SubCommand::with_name("temperature"),
-        ]);
-    let matches = cli_parser
-        .get_matches_safe()
-        .chain_err(|| ErrorKind::InvalidArgs)?;
+fn parse_command_line<'c>() -> Result<ArgMatches<'c>> {
+    // Setup the app that will parse the command-line.
+    let parser_app = BenitaCommanderApp::new();
+    let matches = parser_app.get_matches();
     Ok(matches)
 }
 
 /// Main program. Starts logger, then evaluates args from stdin.
 fn run_code() -> Result<()> {
-    // This runs the whole program. Everything has brought us to this point.
-    // Use it wisely.
     {
         // Parse the user input from the command-line.
         let matched_args = parse_command_line()?;
