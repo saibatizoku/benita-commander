@@ -62,16 +62,16 @@ fn parse_command_line<'a>() -> Result<ArgMatches<'a>> {
 
 /// Main program. Starts logger, then evaluates args from stdin.
 fn run_code() -> Result<()> {
-    // Initialize logging.
-    let _log = start_log()?;
-
-    info!("benita-command starting");
-
     // This runs the whole program. Everything has brought us to this point.
     // Use it wisely.
     {
         // Parse the user input from the command-line.
         let matched_args = parse_command_line()?;
+
+        // Initialize logging.
+        let _log = start_log()?;
+
+        info!("benita-command starting");
         let _run = evaluate(&matched_args)?;
     }
 
