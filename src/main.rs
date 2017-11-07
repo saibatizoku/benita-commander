@@ -6,9 +6,9 @@ extern crate chrono;
 extern crate clap;
 #[macro_use]
 extern crate error_chain;
+extern crate fern;
 #[macro_use]
 extern crate log;
-extern crate fern;
 
 /// Errors and their descriptions
 pub mod errors {
@@ -36,7 +36,7 @@ use clap::{App, AppSettings, ArgMatches, SubCommand};
 
 
 /// Execute the program from the given command-line arguments
-fn evaluate(args: &ArgMatches) ->Result<()> {
+fn evaluate(args: &ArgMatches) -> Result<()> {
     debug!("{:?}", args);
     println!("Hello, world!");
     Ok(())
@@ -45,15 +45,14 @@ fn evaluate(args: &ArgMatches) ->Result<()> {
 /// parse command line arguments, return the valid matches.
 fn parse_command_line<'a>() -> Result<ArgMatches<'a>> {
     let cli_parser = App::new("benita-commander")
-            .settings(&[
-                // AppSettings::DisableHelpSubcommand,
-                AppSettings::SubcommandRequired,
-            ])
-            .subcommands(vec![
-                         SubCommand::with_name("conductivity"),
-                         SubCommand::with_name("ph"),
-                         SubCommand::with_name("temperature"),
-                         ]);
+        .settings(&[
+            AppSettings::SubcommandRequired,
+        ])
+        .subcommands(vec![
+            SubCommand::with_name("conductivity"),
+            SubCommand::with_name("ph"),
+            SubCommand::with_name("temperature"),
+        ]);
     let matches = cli_parser
         .get_matches_safe()
         .chain_err(|| ErrorKind::InvalidArgs)?;
