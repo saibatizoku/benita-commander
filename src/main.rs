@@ -53,7 +53,7 @@ use std::time::Duration;
 use self::errors::*;
 use self::cli::BenitaCommanderApp;
 use self::conductivity::{ConductivityREP, ConductivityREQ};
-use self::logging::start_log;
+//use self::logging::start_log;
 use self::ph::{PhREP, PhREQ};
 use self::readline::{CommanderReadline, SensorKind};
 use self::temperature::{TemperatureREP, TemperatureREQ};
@@ -236,7 +236,7 @@ fn run_code() -> Result<()> {
         let matched_args = parse_command_line()?;
 
         // Initialize logging.
-        let _log = start_log()?;
+        //let _log = start_log()?;
 
         info!("benita-command starting");
         let _run = evaluate(&matched_args)?;
