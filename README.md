@@ -50,23 +50,23 @@ For help:
 
 #### pH
 
->   $ export PH_REP_URL= tcp://127.0.0.1:7777
+>   $ export PH_REP_URL= tcp://127.0.0.1:7778
 >
 >   $ export PH_REP_PATH="/dev/i2c-0"
 >
->   $ export PH_REP_ADDRESS=77
+>   $ export PH_REP_ADDRESS=78
 >
->   $ benita-commander ph rep tcp://127.0.0.1:7778 /dev/i2c-0 78
+>   $ benita-commander ph rep
 
 #### Temperature
 
->   $ export TEMPERATURE_REP_URL= tcp://127.0.0.1:7777
+>   $ export TEMPERATURE_REP_URL= tcp://127.0.0.1:7779
 >
 >   $ export TEMPERATURE_REP_PATH="/dev/i2c-0"
 >
->   $ export TEMPERATURE_REP_ADDRESS=77
+>   $ export TEMPERATURE_REP_ADDRESS=79
 >
->   $ benita-commander temperature rep tcp://127.0.0.1:7779 /dev/i2c-0 79
+>   $ benita-commander temperature rep
 
 ## REQ clients
 
@@ -106,7 +106,7 @@ Press `q` or `quit` to exit the client.
 
 #### Conductivity
 
->   export CONDUCTIVITY_REQ_URL="tcp://127.0.0.1:7777"
+>   $ export CONDUCTIVITY_REQ_URL="tcp://127.0.0.1:7777"
 
 >   $ benita-commander conductivity req
 
@@ -114,7 +114,7 @@ Press `q` or `quit` to exit the client.
 
 #### pH
 
->   export PH_REQ_URL="tcp://127.0.0.1:7778"
+>   $ export PH_REQ_URL="tcp://127.0.0.1:7778"
 
 >   $ benita-commander ph req
 
@@ -122,7 +122,7 @@ Press `q` or `quit` to exit the client.
 
 #### Temperature
 
->   export TEMPERATURE_REQ_URL="tcp://127.0.0.1:7779"
+>   $ export TEMPERATURE_REQ_URL="tcp://127.0.0.1:7779"
 
 >   $ benita-commander temperature req
 
