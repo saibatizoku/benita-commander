@@ -32,12 +32,15 @@ For help:
 
 For interactive mode (type `q` or `quit` to exit):
 >   $ benita-commander conductivity req tcp://127.0.0.1:7777
+>
 >   conductivity>> [ENTER COMMAND]
 
 >   $ benita-commander ph req tcp://127.0.0.1:7778
+>
 >   ph>> [ENTER COMMAND]
 
 >   $ benita-commander temperature req tcp://127.0.0.1:7779
+>
 >   temperature>> [ENTER COMMAND]
 
 For batch mode:
