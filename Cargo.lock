@@ -48,7 +48,7 @@ dependencies = [
 [[package]]
 name = "benita"
 version = "0.1.7"
-source = "git+https://github.com/saibatizoku/benita.git#e17d721208373a6e92794abf462b220896e0058c"
+source = "git+https://github.com/saibatizoku/benita.git#b7b73185ecef6b96067a8a70be80b2d63968b870"
 dependencies = [
  "chrono 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "clap 2.27.1 (registry+https://github.com/rust-lang/crates.io-index)",
