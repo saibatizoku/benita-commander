@@ -11,6 +11,9 @@ extern crate fern;
 extern crate log;
 extern crate rustyline;
 
+#[macro_use]
+mod macros;
+
 pub mod cli;
 pub mod errors {
     //! Errors and their descriptions
