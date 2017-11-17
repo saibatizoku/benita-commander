@@ -17,8 +17,11 @@ mod macros;
 pub mod cli;
 pub mod errors {
     //! Errors and their descriptions
+    use super::conductivity;
     use super::logging;
+    use super::ph;
     use super::readline;
+    use super::temperature;
     use benita;
 
     error_chain! {
@@ -29,13 +32,20 @@ pub mod errors {
         }
         links {
             Benita(benita::errors::Error, benita::errors::ErrorKind);
+            Conductivity(conductivity::Error, conductivity::ErrorKind);
             Logs(logging::Error, logging::ErrorKind);
+            Ph(ph::Error, ph::ErrorKind);
             Readline(readline::Error, readline::ErrorKind);
+            Temperature(temperature::Error, temperature::ErrorKind);
         }
     }
 }
+
+pub mod conductivity;
+pub mod ph;
 pub mod logging;
 pub mod readline;
+pub mod temperature;
 
 use self::errors::*;
 use cli::{responder_subcommand, BenitaCommanderApp};
