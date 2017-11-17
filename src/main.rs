@@ -9,11 +9,13 @@ extern crate error_chain;
 extern crate fern;
 #[macro_use]
 extern crate log;
+extern crate rustyline;
 
 pub mod cli;
 pub mod errors {
     //! Errors and their descriptions
     use super::logging;
+    use super::readline;
     use benita;
 
     error_chain! {
@@ -23,12 +25,14 @@ pub mod errors {
             }
         }
         links {
-            Logs(logging::Error, logging::ErrorKind);
             Benita(benita::errors::Error, benita::errors::ErrorKind);
+            Logs(logging::Error, logging::ErrorKind);
+            Readline(readline::Error, readline::ErrorKind);
         }
     }
 }
 pub mod logging;
+pub mod readline;
 
 use self::errors::*;
 use cli::{responder_subcommand, BenitaCommanderApp};
