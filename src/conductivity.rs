@@ -7,11 +7,11 @@ use std::fmt;
 
 pub use self::errors::*;
 
-use benita::devices::conductivity::commands::Command;
-use benita::devices::conductivity::ConductivitySensor;
-use benita::network::common::{Endpoint, SocketReply, SocketRequest};
-use benita::network::conductivity::{ConductivityRequester, ConductivityResponder};
-use benita::network::conductivity::requests::*;
+use benita::conductivity::device::commands::Command;
+use benita::conductivity::device::ConductivitySensor;
+use benita::conductivity::network::{ConductivityRequester, ConductivityResponder};
+use benita::conductivity::network::requests::*;
+use benita::network::{Endpoint, SocketReply, SocketRequest};
 use benita::utilities::{create_and_bind_responder, create_and_connect_requester};
 
 // Creates a requester with an explicit list of commands that it handles.

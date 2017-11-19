@@ -7,11 +7,11 @@ use std::fmt;
 
 pub use self::errors::*;
 
-use benita::devices::ph::commands::Command;
-use benita::devices::ph::PhSensor;
-use benita::network::common::{Endpoint, SocketReply, SocketRequest};
-use benita::network::ph::{PhRequester, PhResponder};
-use benita::network::ph::requests::*;
+use benita::network::{Endpoint, SocketReply, SocketRequest};
+use benita::ph::device::commands::Command;
+use benita::ph::device::PhSensor;
+use benita::ph::network::{PhRequester, PhResponder};
+use benita::ph::network::requests::*;
 use benita::utilities::{create_and_bind_responder, create_and_connect_requester};
 
 // Define PhREQ type
