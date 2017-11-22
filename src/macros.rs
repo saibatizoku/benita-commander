@@ -24,17 +24,6 @@ macro_rules! requester {
                 Ok($name { requester })
             }
 
-            pub fn request<T: SocketRequest + Command>(&self, cmd: T) -> Option<String>
-                where
-                    <T as SocketRequest>::Response: SocketReply + fmt::Debug,
-                {
-                    println!("REQ: {}",SocketRequest::to_string(&cmd));
-                    match SocketRequest::send(&cmd, &self.requester) {
-                        Ok(rep) => Some(format!("{}", SocketReply::to_string(&rep))),
-                        _ => None,
-                    }
-                }
-
             req_fn_eval! { [ $( $request ),* ] }
         }
     };
@@ -44,15 +33,13 @@ macro_rules! req_fn_eval {
     ( [ $( $request:ty ),* ] ) => {
         pub fn eval(&self, s: &str) -> Result<String> {
             debug!("evaluating: {:?}", s);
-            let resp = match s {
-                $( a if s.parse::<$request>().is_ok() =>
-                   self.request(a.parse::<$request>().unwrap()), )*
-                _ => None,
-            };
-            match resp {
-                Some(rep) => Ok(rep),
-                None => Ok("command not recognized".to_string()),
-            }
+            $(
+                if let Ok(req) = s.parse::<$request>() {
+                    let rep = SocketRequest::send(&req, &self.requester)
+                        .chain_err(|| "bad REQ eval")?;
+                    return Ok(SocketReply::to_string(&rep));
+                } )*
+            Ok("command not recognized".to_string())
         }
     };
 }
@@ -81,19 +68,6 @@ macro_rules! responder {
                 Ok($name { responder })
             }
 
-            // Evaluate a conductivity command using the given responder. Returns a String.
-            pub fn respond<T: SocketRequest + Command>(&self, cmd: T) -> Option<String>
-                where <T as Command>::Response: fmt::Debug {
-                    println!("REQ: {}", SocketRequest::to_string(&cmd));
-                    match cmd.run(&mut self.responder.sensor.i2cdev.borrow_mut()) {
-                        Ok(rep) => {
-                            println!("REP: {:?}", rep);
-                            Some(format!("{:?}", rep))
-                        }
-                        _ => None,
-                    }
-                }
-
             res_fn_eval! { [ $( $request ),* ] }
         }
     };
@@ -101,17 +75,16 @@ macro_rules! responder {
 
 macro_rules! res_fn_eval {
     ( [ $( $request:ident ),* ] ) => {
+        // Evaluate a conductivity command using the given responder. Returns a String.
         pub fn eval(&self, s: &str) -> Result<String> {
             debug!("evaluating: {:?}", s);
-            let resp = match s {
-                $( a if <$request as SocketRequest>::from_str(a).is_ok() =>
-                   self.respond(<$request as SocketRequest>::from_str(a).unwrap()), )*
-                _ => None,
-            };
-            match resp {
-                Some(rep) => Ok(rep),
-                None => Ok("command not recognized".to_string()),
-            }
+            $(
+                if let Ok(req) = <$request as SocketRequest>::from_str(s) {
+                    let rep = <$request as I2CCommand>::write(&req, &self.responder.sensor)
+                        .chain_err(|| "bad REQ eval")?;
+                    return Ok(I2CResponse::to_string(&rep));
+                } )*
+            Ok("command not recognized".to_string())
         }
     };
 }

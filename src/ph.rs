@@ -3,12 +3,10 @@ mod errors {
     error_chain!{}
 }
 
-use std::fmt;
-
 pub use self::errors::*;
 
+use benita::ezo::devices::{I2CCommand, I2CResponse};
 use benita::ezo::network::{Endpoint, SocketReply, SocketRequest};
-use benita::ezo::ph::device::commands::Command;
 use benita::ezo::ph::device::PhSensor;
 use benita::ezo::ph::network::{PhRequester, PhResponder};
 use benita::ezo::ph::network::requests::*;

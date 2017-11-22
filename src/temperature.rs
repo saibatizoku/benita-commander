@@ -3,12 +3,10 @@ mod errors {
     error_chain!{}
 }
 
-use std::fmt;
-
 pub use self::errors::*;
 
+use benita::ezo::devices::{I2CCommand, I2CResponse};
 use benita::ezo::network::{Endpoint, SocketReply, SocketRequest};
-use benita::ezo::temperature::device::commands::Command;
 use benita::ezo::temperature::device::TemperatureSensor;
 use benita::ezo::temperature::network::{TemperatureRequester, TemperatureResponder};
 use benita::ezo::temperature::network::requests::*;

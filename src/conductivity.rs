@@ -3,14 +3,12 @@ mod errors {
     error_chain!{}
 }
 
-use std::fmt;
-
 pub use self::errors::*;
 
-use benita::ezo::conductivity::device::commands::Command;
 use benita::ezo::conductivity::device::ConductivitySensor;
 use benita::ezo::conductivity::network::{ConductivityRequester, ConductivityResponder};
 use benita::ezo::conductivity::network::requests::*;
+use benita::ezo::devices::{I2CCommand, I2CResponse};
 use benita::ezo::network::{Endpoint, SocketReply, SocketRequest};
 use benita::utilities::{create_and_bind_responder, create_and_connect_requester};
 
