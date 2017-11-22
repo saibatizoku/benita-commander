@@ -51,38 +51,30 @@ impl BenitaCommanderApp {
             .subcommands(vec![
                 SubCommand::with_name("conductivity")
                     .about("Commands for conductivity")
-                    .subcommands(
-                        vec![
-                            requester_subcommand("CONDUCTIVITY_REQ_URL"),
-                            responder_subcommand(
-                                "CONDUCTIVITY_REP_URL",
-                                "CONDUCTIVITY_REP_PATH",
-                                "CONDUCTIVITY_REP_ADDRESS",
-                                ),
-                            ]
+                    .subcommands(vec![
+                        requester_subcommand("CONDUCTIVITY_REQ_URL"),
+                        responder_subcommand(
+                            "CONDUCTIVITY_REP_URL",
+                            "CONDUCTIVITY_REP_PATH",
+                            "CONDUCTIVITY_REP_ADDRESS",
                         ),
+                    ]),
                 SubCommand::with_name("ph")
                     .about("Commands for pH")
-                    .subcommands(
-                        vec![
-                            requester_subcommand("PH_REQ_URL"),
-                            responder_subcommand(
-                                "PH_REP_URL",
-                                "PH_REP_PATH",
-                                "PH_REP_ADDRESS",
-                                ),
-                        ]),
+                    .subcommands(vec![
+                        requester_subcommand("PH_REQ_URL"),
+                        responder_subcommand("PH_REP_URL", "PH_REP_PATH", "PH_REP_ADDRESS"),
+                    ]),
                 SubCommand::with_name("temperature")
                     .about("Commands for temperature")
-                    .subcommands(
-                        vec![
-                            requester_subcommand("TEMPERATURE_REQ_URL"),
-                            responder_subcommand(
-                                "TEMPERATURE_REP_URL",
-                                "TEMPERATURE_REP_PATH",
-                                "TEMPERATURE_REP_ADDRESS",
-                                ),
-                            ]),
+                    .subcommands(vec![
+                        requester_subcommand("TEMPERATURE_REQ_URL"),
+                        responder_subcommand(
+                            "TEMPERATURE_REP_URL",
+                            "TEMPERATURE_REP_PATH",
+                            "TEMPERATURE_REP_ADDRESS",
+                        ),
+                    ]),
             ])
     }
 }
