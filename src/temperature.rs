@@ -7,11 +7,11 @@ use std::fmt;
 
 pub use self::errors::*;
 
-use benita::network::{Endpoint, SocketReply, SocketRequest};
-use benita::temperature::device::commands::Command;
-use benita::temperature::device::TemperatureSensor;
-use benita::temperature::network::{TemperatureRequester, TemperatureResponder};
-use benita::temperature::network::requests::*;
+use benita::ezo::network::{Endpoint, SocketReply, SocketRequest};
+use benita::ezo::temperature::device::commands::Command;
+use benita::ezo::temperature::device::TemperatureSensor;
+use benita::ezo::temperature::network::{TemperatureRequester, TemperatureResponder};
+use benita::ezo::temperature::network::requests::*;
 use benita::utilities::{create_and_bind_responder, create_and_connect_requester};
 
 // Define TemperatureREQ type

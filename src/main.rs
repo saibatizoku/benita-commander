@@ -32,6 +32,7 @@ pub mod errors {
         }
         links {
             Benita(benita::errors::Error, benita::errors::ErrorKind);
+            BenitaEzo(benita::ezo::errors::Error, benita::ezo::errors::ErrorKind);
             Conductivity(conductivity::Error, conductivity::ErrorKind);
             Logs(logging::Error, logging::ErrorKind);
             Ph(ph::Error, ph::ErrorKind);
@@ -58,7 +59,7 @@ use self::ph::{PhREP, PhREQ};
 use self::readline::{CommanderReadline, SensorKind};
 use self::temperature::{TemperatureREP, TemperatureREQ};
 
-use benita::network::Endpoint;
+use benita::ezo::network::Endpoint;
 use clap::ArgMatches;
 
 /// Execute the program from the given command-line arguments

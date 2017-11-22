@@ -28,9 +28,9 @@ macro_rules! requester {
                 where
                     <T as SocketRequest>::Response: SocketReply + fmt::Debug,
                 {
-                    println!("REQ: {}", cmd.to_request_string());
-                    match cmd.send_to(&self.requester) {
-                        Ok(rep) => Some(format!("{}", rep.to_reply_string())),
+                    println!("REQ: {}",SocketRequest::to_string(&cmd));
+                    match SocketRequest::send(&cmd, &self.requester) {
+                        Ok(rep) => Some(format!("{}", SocketReply::to_string(&rep))),
                         _ => None,
                     }
                 }
@@ -84,7 +84,7 @@ macro_rules! responder {
             // Evaluate a conductivity command using the given responder. Returns a String.
             pub fn respond<T: SocketRequest + Command>(&self, cmd: T) -> Option<String>
                 where <T as Command>::Response: fmt::Debug {
-                    println!("REQ: {}", cmd.to_request_string());
+                    println!("REQ: {}", SocketRequest::to_string(&cmd));
                     match cmd.run(&mut self.responder.sensor.i2cdev.borrow_mut()) {
                         Ok(rep) => {
                             println!("REP: {:?}", rep);
@@ -104,8 +104,8 @@ macro_rules! res_fn_eval {
         pub fn eval(&self, s: &str) -> Result<String> {
             debug!("evaluating: {:?}", s);
             let resp = match s {
-                $( a if $request::from_request_str(a).is_ok() =>
-                   self.respond($request::from_request_str(a).unwrap()), )*
+                $( a if <$request as SocketRequest>::from_str(a).is_ok() =>
+                   self.respond(<$request as SocketRequest>::from_str(a).unwrap()), )*
                 _ => None,
             };
             match resp {
